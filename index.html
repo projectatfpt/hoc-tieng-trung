@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thần Long Kỷ Nguyên</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header với icon nhật ký -->
+        <header class="app-header">
+            <h1 class="app-title">THẦN LONG KỶ NGUYÊN</h1>
+            <div class="log-icon" id="log-toggle">
+                <i class="fas fa-scroll"></i>
+            </div>
+        </header>
+
+        <!-- Khu vực hiển thị rồng -->
+        <div class="dragon-display">
+            <div class="dragon-container">
+                <!-- Baby Dragon -->
+                <div class="dragon baby-dragon" id="baby-dragon">
+                    <div class="eye"></div>
+                    <div class="wing"></div>
+                </div>
+
+                <!-- Adult Dragon -->
+                <div class="dragon adult-dragon" id="adult-dragon">
+                    <div class="body"></div>
+                    <div class="head"></div>
+                    <div class="eye"></div>
+                    <div class="horn"></div>
+                    <div class="wing"></div>
+                </div>
+
+                <!-- God Dragon -->
+                <div class="dragon god-dragon" id="god-dragon">
+                    <div class="body"></div>
+                    <div class="head"></div>
+                    <div class="eye"></div>
+                    <div class="horn"></div>
+                    <div class="wing"></div>
+                    <div class="aura"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thông tin rồng -->
+        <div class="dragon-info">
+            <div class="dragon-name">Rồng của bạn</div>
+            <div class="dragon-level">Cấp <span id="level">1</span> - <span id="stage">Rồng non</span></div>
+        </div>
+
+        <!-- Các chỉ số -->
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-label">Đói</div>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="hunger-bar" style="width: 100%"></div>
+                </div>
+                <div class="stat-value" id="hunger-value">100%</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-label">Vui vẻ</div>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="happiness-bar" style="width: 100%"></div>
+                </div>
+                <div class="stat-value" id="happiness-value">100%</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-label">Kinh nghiệm</div>
+                <div class="stat-bar">
+                    <div class="stat-fill" id="xp-bar" style="width: 0%"></div>
+                </div>
+                <div class="stat-value" id="xp-value">0/100</div>
+            </div>
+        </div>
+
+        <!-- Các nút hành động -->
+        <div class="action-buttons">
+            <button id="feed-btn" class="action-btn">
+                <i class="fas fa-utensils"></i>
+                <span>Cho ăn</span>
+            </button>
+            <button id="play-btn" class="action-btn">
+                <i class="fas fa-gamepad"></i>
+                <span>Chơi đùa</span>
+            </button>
+            <button id="train-btn" class="action-btn">
+                <i class="fas fa-dumbbell"></i>
+                <span>Huấn luyện</span>
+            </button>
+            <button id="battle-btn" class="action-btn">
+                <i class="fas fa-swords"></i>
+                <span>Chiến đấu</span>
+            </button>
+        </div>
+
+        <!-- Popup nhật ký -->
+        <div class="log-popup" id="log-popup">
+            <div class="popup-header">
+                <h3>Nhật ký rồng</h3>
+                <button class="close-popup" id="close-popup">&times;</button>
+            </div>
+            <div class="popup-content" id="log-container">
+                <div class="log-entry">Chào mừng đến với Thần Long Kỷ Nguyên!</div>
+                <div class="log-entry">Bạn có một chú rồng con mới sinh!</div>
+            </div>
+        </div>
+        <div class="popup-overlay" id="popup-overlay"></div>
+
+        <!-- Animation tiến hóa -->
+        <div class="evolution-animation" id="evolution-animation">
+            <div class="evolution-content">
+                <h2>Tiến hóa!</h2>
+                <p id="evolution-text">Rồng của bạn đang tiến hóa...</p>
+                <button id="close-evolution">Tiếp tục</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

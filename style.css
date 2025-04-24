@@ -1,0 +1,559 @@
+:root {
+    --beige-primary: #F5E8C7;
+    --beige-secondary: #EAD8C0;
+    --beige-dark: #D1BB9E;
+    --beige-light: #FFF5E0;
+    --accent-gold: #D4AF37;
+    --accent-red: #C84B31;
+    --accent-blue: #34656D;
+    --text-dark: #3A3845;
+    --text-light: #F7F7F7;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--beige-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 430px;
+    background-color: var(--beige-primary);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+}
+
+.app-header {
+    background-color: var(--beige-secondary);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--beige-dark);
+}
+
+.app-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.log-icon {
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.log-icon:hover {
+    transform: scale(1.1);
+}
+
+.dragon-display {
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--beige-secondary), var(--beige-primary));
+    position: relative;
+}
+
+.dragon-container {
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dragon {
+    position: absolute;
+    transition: all 0.5s ease;
+}
+
+/* Baby Dragon */
+.baby-dragon {
+    width: 120px;
+    height: 120px;
+    background-color: var(--accent-blue);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.baby-dragon .eye {
+    width: 12px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    box-shadow: 35px 0 0 white;
+}
+
+.baby-dragon .eye::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    box-shadow: 35px 0 0 black;
+}
+
+.baby-dragon .wing {
+    width: 30px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px 50% 50% 5px;
+    position: absolute;
+    top: 50px;
+    left: -25px;
+    transform: rotate(20deg);
+    animation: flap 1s ease-in-out infinite;
+}
+
+/* Adult Dragon */
+.adult-dragon {
+    width: 200px;
+    height: 160px;
+    display: none;
+}
+
+.adult-dragon .body {
+    width: 140px;
+    height: 80px;
+    background-color: var(--accent-red);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.adult-dragon .head {
+    width: 60px;
+    height: 50px;
+    background-color: var(--accent-red);
+    border-radius: 50%;
+    position: absolute;
+    top: -25px;
+    left: 40px;
+}
+
+.adult-dragon .eye {
+    width: 12px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    box-shadow: 25px 0 0 white;
+}
+
+.adult-dragon .horn {
+    width: 15px;
+    height: 25px;
+    background-color: var(--accent-gold);
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    transform: rotate(-20deg);
+    box-shadow: 25px 0 0 var(--accent-gold);
+}
+
+.adult-dragon .wing {
+    width: 60px;
+    height: 90px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 5px 50% 50% 5px;
+    position: absolute;
+    top: 25px;
+    left: -40px;
+    transform: rotate(20deg);
+    animation: flap 0.8s ease-in-out infinite;
+}
+
+/* God Dragon */
+.god-dragon {
+    width: 250px;
+    height: 220px;
+    display: none;
+    filter: drop-shadow(0 0 10px var(--accent-gold));
+}
+
+.god-dragon .body {
+    width: 180px;
+    height: 120px;
+    background: linear-gradient(135deg, var(--accent-gold), #ff9d00);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+}
+
+.god-dragon .head {
+    width: 80px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--accent-gold), #ff9d00);
+    border-radius: 50%;
+    position: absolute;
+    top: -30px;
+    left: 50px;
+}
+
+.god-dragon .eye {
+    width: 15px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    box-shadow: 35px 0 0 white;
+}
+
+.god-dragon .horn {
+    width: 20px;
+    height: 35px;
+    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    transform: rotate(-20deg);
+    box-shadow: 35px 0 0 linear-gradient(135deg, #ffffff, #e0e0e0);
+}
+
+.god-dragon .wing {
+    width: 90px;
+    height: 140px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.6), rgba(255, 255, 255, 0.8));
+    border-radius: 5px 50% 50% 5px;
+    position: absolute;
+    top: 40px;
+    left: -60px;
+    transform: rotate(20deg);
+    animation: flap 0.7s ease-in-out infinite;
+}
+
+.god-dragon .aura {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%);
+    border-radius: 50%;
+    top: -40px;
+    left: -25px;
+    animation: pulse 3s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.3; }
+    100% { transform: scale(1.1); opacity: 0.6; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes flap {
+    0%, 100% { transform: rotate(20deg); }
+    50% { transform: rotate(10deg); }
+}
+
+.dragon-info {
+    text-align: center;
+    padding: 10px 20px;
+    background-color: var(--beige-light);
+    border-top: 1px solid var(--beige-dark);
+    border-bottom: 1px solid var(--beige-dark);
+}
+
+.dragon-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.dragon-level {
+    font-size: 0.9rem;
+    color: var(--accent-blue);
+    margin-top: 5px;
+}
+
+.stats-container {
+    padding: 20px;
+    background-color: var(--beige-light);
+}
+
+.stat-item {
+    margin-bottom: 15px;
+}
+
+.stat-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.stat-bar {
+    height: 10px;
+    background-color: var(--beige-dark);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.stat-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.3) 0%, 
+        rgba(255, 255, 255, 0) 50%, 
+        rgba(255, 255, 255, 0.3) 100%);
+    animation: shine 2s infinite;
+}
+
+#hunger-bar {
+    background: linear-gradient(90deg, #FF9D00, #FF5252);
+}
+
+#happiness-bar {
+    background: linear-gradient(90deg, #6ECFF6, #1E88E5);
+}
+
+#xp-bar {
+    background: linear-gradient(90deg, #7BFF00, #00B248);
+}
+
+.stat-value {
+    text-align: right;
+    font-size: 0.8rem;
+    margin-top: 3px;
+    color: var(--text-dark);
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--beige-secondary);
+}
+
+.action-btn {
+    background: linear-gradient(135deg, var(--beige-light), var(--beige-dark));
+    border: none;
+    border-radius: 12px;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.action-btn i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: var(--accent-gold);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.action-btn:disabled {
+    opacity: 0.6;
+    transform: none;
+}
+
+/* Popup nhật ký */
+.log-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    max-height: 70vh;
+    background-color: var(--beige-primary);
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.popup-header {
+    padding: 15px 20px;
+    background-color: var(--beige-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--beige-dark);
+}
+
+.popup-header h3 {
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+.close-popup {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--accent-red);
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.popup-content {
+    padding: 15px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.log-entry {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Evolution animation */
+.evolution-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.evolution-animation.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.evolution-content {
+    background: var(--beige-primary);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.evolution-content h2 {
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+}
+
+.evolution-content p {
+    color: var(--text-dark);
+    margin-bottom: 20px;
+}
+
+.evolution-content button {
+    background: linear-gradient(135deg, var(--accent-gold), #ff9d00);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+}
+
+.evolution-content button:active {
+    transform: scale(0.95);
+}
+
+/* Responsive */
+@media (max-height: 700px) {
+    .dragon-container {
+        height: 200px;
+    }
+
+    .baby-dragon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .adult-dragon {
+        width: 180px;
+        height: 140px;
+    }
+
+    .god-dragon {
+        width: 220px;
+        height: 190px;
+    }
+}
