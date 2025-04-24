@@ -35,14 +35,10 @@ const playBtn = document.getElementById('play-btn');
 const trainBtn = document.getElementById('train-btn');
 const battleBtn = document.getElementById('battle-btn');
 
-const logContainer = document.getElementById('log-container');
+const notificationContainer = document.getElementById('notification-container');
 const evolutionAnimation = document.getElementById('evolution-animation');
 const evolutionText = document.getElementById('evolution-text');
 const closeEvolutionBtn = document.getElementById('close-evolution');
-const logToggle = document.getElementById('log-toggle');
-const logPopup = document.getElementById('log-popup');
-const closePopup = document.getElementById('close-popup');
-const popupOverlay = document.getElementById('popup-overlay');
 
 // Battle Connection Elements
 const battlePopup = document.getElementById('battle-popup');
@@ -56,6 +52,7 @@ const connectBtn = document.getElementById('connect-btn');
 const battleStatus = document.getElementById('battle-status');
 const connectionStatus = document.getElementById('connection-status');
 const closeBattlePopup = document.getElementById('close-battle-popup');
+const popupOverlay = document.getElementById('popup-overlay');
 
 // WebRTC variables
 let peer;
@@ -64,8 +61,11 @@ let currentRoomCode = '';
 
 // Initialize game
 function initGame() {
+    loadGame(); // Load saved game data
+    
     updateUI();
     startDecay();
+    autoSave(); // Start auto-save interval
 
     // Event listeners for main game
     feedBtn.addEventListener('click', feedDragon);
@@ -73,40 +73,79 @@ function initGame() {
     trainBtn.addEventListener('click', trainDragon);
     battleBtn.addEventListener('click', showBattlePopup);
     closeEvolutionBtn.addEventListener('click', closeEvolution);
-    logToggle.addEventListener('click', toggleLog);
-    closePopup.addEventListener('click', toggleLog);
-    popupOverlay.addEventListener('click', toggleLog);
 
     // Event listeners for battle connection
     createRoomBtn.addEventListener('click', createRoom);
     joinRoomBtn.addEventListener('click', showJoinRoom);
     connectBtn.addEventListener('click', joinRoom);
     closeBattlePopup.addEventListener('click', closeBattleConnection);
+    popupOverlay.addEventListener('click', closeBattleConnection);
 
-    // Add initial log entries
-    addLog("Chào mừng đến với Thần Long Kỷ Nguyên!");
-    addLog("Bạn có một chú rồng con mới sinh!");
+    // Initial notifications
+    showNotification("Chào mừng đến với Thần Long Kỷ Nguyên!");
+    if (gameState.level > 1) {
+        showNotification("Đã tải lại dữ liệu game của bạn!");
+    } else {
+        showNotification("Bạn có một chú rồng con mới sinh!");
+    }
 }
 
-// Toggle log popup
-function toggleLog() {
-    logPopup.style.display = logPopup.style.display === 'flex' ? 'none' : 'flex';
-    popupOverlay.style.display = popupOverlay.style.display === 'block' ? 'none' : 'block';
+// Save game to localStorage
+function saveGame() {
+    localStorage.setItem('dragonGameSave', JSON.stringify(gameState));
+    console.log("Game saved");
+}
+
+// Load game from localStorage
+function loadGame() {
+    const savedGame = localStorage.getItem('dragonGameSave');
+    if (savedGame) {
+        const parsedData = JSON.parse(savedGame);
+        
+        // Update game state with loaded data
+        Object.assign(gameState, parsedData);
+        
+        // Update dragon display based on stage
+        switch (gameState.stage) {
+            case 'baby':
+                babyDragon.style.display = 'block';
+                adultDragon.style.display = 'none';
+                godDragon.style.display = 'none';
+                break;
+            case 'adult':
+                babyDragon.style.display = 'none';
+                adultDragon.style.display = 'block';
+                godDragon.style.display = 'none';
+                break;
+            case 'god':
+                babyDragon.style.display = 'none';
+                adultDragon.style.display = 'none';
+                godDragon.style.display = 'block';
+                break;
+        }
+    }
+}
+
+// Auto-save every 30 seconds
+function autoSave() {
+    setInterval(() => {
+        saveGame();
+        showNotification("Game đã được tự động lưu");
+    }, 30000);
+}
+
+// Show notification
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
     
-    if (logPopup.style.display === 'flex') {
-        logContainer.scrollTop = logContainer.scrollHeight;
-    }
-}
-
-// Show battle popup
-function showBattlePopup() {
-    if (gameState.hunger < 30 || gameState.happiness < 30) {
-        addLog("Rồng không đủ khỏe để chiến đấu!");
-        return;
-    }
-
-    battlePopup.style.display = 'flex';
-    popupOverlay.style.display = 'block';
+    notificationContainer.appendChild(notification);
+    
+    // Auto-remove notification after 3 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
 }
 
 // Update all UI elements
@@ -141,6 +180,9 @@ function updateUI() {
     playBtn.disabled = cooldownActive;
     trainBtn.disabled = cooldownActive;
     battleBtn.disabled = cooldownActive;
+    
+    // Auto-save when UI updates
+    saveGame();
 }
 
 // Stats decay over time
@@ -150,11 +192,11 @@ function startDecay() {
         if (gameState.happiness > 0) gameState.happiness -= 1;
 
         if (gameState.hunger <= 0) {
-            addLog("Rồng của bạn đang đói! Hãy cho nó ăn!");
+            showNotification("Rồng của bạn đang đói! Hãy cho nó ăn!");
         }
 
         if (gameState.happiness <= 30) {
-            addLog("Rồng của bạn đang buồn. Hãy chơi với nó!");
+            showNotification("Rồng của bạn đang buồn. Hãy chơi với nó!");
         }
 
         updateUI();
@@ -164,7 +206,7 @@ function startDecay() {
 // Feed the dragon
 function feedDragon() {
     if (gameState.hunger >= 100) {
-        addLog("Rồng của bạn no rồi!");
+        showNotification("Rồng của bạn no rồi!");
         return;
     }
 
@@ -172,7 +214,7 @@ function feedDragon() {
     gameState.xp += 5;
     checkLevelUp();
 
-    addLog("Bạn cho rồng ăn. Nó rất thích!");
+    showNotification("Bạn cho rồng ăn. Nó rất thích!");
     gameState.lastActionTime = Date.now();
     updateUI();
 }
@@ -180,7 +222,7 @@ function feedDragon() {
 // Play with dragon
 function playWithDragon() {
     if (gameState.happiness >= 100) {
-        addLog("Rồng của bạn đang rất vui!");
+        showNotification("Rồng của bạn đang rất vui!");
         return;
     }
 
@@ -188,7 +230,7 @@ function playWithDragon() {
     gameState.xp += 3;
     checkLevelUp();
 
-    addLog("Bạn chơi đùa với rồng. Nó cười khúc khích!");
+    showNotification("Bạn chơi đùa với rồng. Nó cười khúc khích!");
     gameState.lastActionTime = Date.now();
     updateUI();
 }
@@ -196,7 +238,7 @@ function playWithDragon() {
 // Train dragon
 function trainDragon() {
     if (gameState.hunger < 30) {
-        addLog("Rồng quá đói để huấn luyện!");
+        showNotification("Rồng quá đói để huấn luyện!");
         return;
     }
 
@@ -207,7 +249,7 @@ function trainDragon() {
     gameState.stats.speed += 1;
     checkLevelUp();
 
-    addLog("Bạn huấn luyện rồng. Các chỉ số được cải thiện!");
+    showNotification("Bạn huấn luyện rồng. Các chỉ số được cải thiện!");
     gameState.lastActionTime = Date.now();
     updateUI();
 }
@@ -219,7 +261,7 @@ function checkLevelUp() {
         gameState.level += 1;
         gameState.xpToNextLevel = Math.floor(gameState.xpToNextLevel * 1.5);
 
-        addLog(`Rồng đã lên cấp ${gameState.level}!`);
+        showNotification(`Rồng đã lên cấp ${gameState.level}!`);
 
         // Check for evolution
         checkEvolution();
@@ -261,45 +303,42 @@ function evolveDragon(newStage) {
             break;
     }
 
-    addLog(`Rồng đang tiến hóa thành ${newStage === 'adult' ? 'Rồng trưởng thành' : 'Thần thú'}!`);
+    showNotification(`Rồng đang tiến hóa thành ${newStage === 'adult' ? 'Rồng trưởng thành' : 'Thần thú'}!`);
 }
 
 // Close evolution animation
 function closeEvolution() {
     evolutionAnimation.classList.remove('active');
-    addLog(`Chúc mừng! Rồng của bạn đã tiến hóa!`);
-}
-
-// Add log entry
-function addLog(message) {
-    const logEntry = document.createElement('div');
-    logEntry.className = 'log-entry';
-    logEntry.textContent = message;
-    logContainer.appendChild(logEntry);
-
-    // Auto-scroll to bottom if popup is open
-    if (logPopup.style.display === 'flex') {
-        logContainer.scrollTop = logContainer.scrollHeight;
-    }
+    showNotification(`Chúc mừng! Rồng của bạn đã tiến hóa!`);
 }
 
 // Battle connection functions
+function showBattlePopup() {
+    if (gameState.hunger < 30 || gameState.happiness < 30) {
+        showNotification("Rồng không đủ khỏe để chiến đấu!");
+        return;
+    }
+
+    battlePopup.style.display = 'flex';
+    popupOverlay.style.display = 'block';
+}
+
 function createRoom() {
-    // Tạo mã phòng ngẫu nhiên 5 ký tự
+    // Generate random 5-character room code
     currentRoomCode = Math.random().toString(36).substr(2, 5).toUpperCase();
     
-    // Khởi tạo Peer
+    // Initialize Peer
     peer = new Peer(currentRoomCode);
     
     connectionStatus.textContent = "Đang chờ đối thủ kết nối...";
     roomCodeDisplay.textContent = currentRoomCode;
     
-    // Hiển thị phần tạo phòng
+    // Show room creation section
     document.querySelector('.connection-options').style.display = 'none';
     roomCreation.style.display = 'block';
     battleStatus.style.display = 'block';
     
-    // Xử lý kết nối
+    // Handle connection
     peer.on('connection', (connection) => {
         conn = connection;
         setupConnection();
@@ -320,7 +359,7 @@ function showJoinRoom() {
 function joinRoom() {
     const roomCode = roomInput.value.trim();
     if (!roomCode) {
-        alert("Vui lòng nhập mã phòng!");
+        showNotification("Vui lòng nhập mã phòng!");
         return;
     }
     
@@ -344,10 +383,10 @@ function setupConnection() {
     conn.on('open', () => {
         connectionStatus.textContent = "Đã kết nối! Chuẩn bị chiến đấu...";
         
-        // Gửi thông tin rồng của bạn
+        // Send your dragon data
         sendDragonData();
         
-        // Bắt đầu trận chiến sau 3 giây
+        // Start battle after 3 seconds
         setTimeout(startMultiplayerBattle, 3000);
     });
     
@@ -369,13 +408,13 @@ function closeBattleConnection() {
     battlePopup.style.display = 'none';
     popupOverlay.style.display = 'none';
     
-    // Reset trạng thái
+    // Reset state
     document.querySelector('.connection-options').style.display = 'grid';
     roomCreation.style.display = 'none';
     roomJoining.style.display = 'none';
     battleStatus.style.display = 'none';
     
-    // Đóng kết nối nếu có
+    // Close connection if exists
     if (conn) conn.close();
     if (peer) peer.destroy();
     
@@ -398,22 +437,22 @@ function sendDragonData() {
     });
 
     if (gameState.stage === 'baby') {
-        addLog("Rồng non của bạn đã sẵn sàng chiến đấu!");
+        showNotification("Rồng non của bạn đã sẵn sàng chiến đấu!");
     }
 }
 
 function handleBattleData(data) {
     if (data.type === 'dragon_data') {
-        // Lưu thông tin đối thủ
+        // Save opponent data
         gameState.opponent = data.data;
-        addLog(`Đã kết nối với đối thủ cấp ${gameState.opponent.level}`);
+        showNotification(`Đã kết nối với đối thủ cấp ${gameState.opponent.level}`);
     } else if (data.type === 'battle_result') {
-        // Xử lý kết quả trận đấu
+        // Handle battle result
         if (data.data.winner === 'you') {
-            addLog("Bạn đã chiến thắng!");
+            showNotification("Bạn đã chiến thắng!");
             gameState.xp += 15 + Math.floor(gameState.level * 1.5);
         } else {
-            addLog("Bạn đã thua cuộc...");
+            showNotification("Bạn đã thua cuộc...");
             gameState.xp += 5 + Math.floor(gameState.level * 0.5);
         }
         checkLevelUp();
@@ -423,42 +462,42 @@ function handleBattleData(data) {
 
 function startMultiplayerBattle() {
     if (!gameState.opponent) {
-        addLog("Chưa nhận được dữ liệu đối thủ");
+        showNotification("Chưa nhận được dữ liệu đối thủ");
         return;
     }
     
-    // Tính toán sức mạnh với hệ số cân bằng
+    // Calculate power with balancing factor
     const yourPower = (gameState.stats.strength + gameState.stats.defense + gameState.stats.speed) * 
                      (0.9 + gameState.level * 0.02);
     const opponentPower = (gameState.opponent.stats.strength + gameState.opponent.stats.defense + gameState.opponent.stats.speed) * 
                          (0.9 + gameState.opponent.level * 0.02);
     
-    // Giảm chỉ số sau trận đấu (ít hơn cho cấp thấp)
+    // Reduce stats after battle (less for lower levels)
     const hungerLoss = Math.max(5, 15 - Math.floor(gameState.level / 2));
     const happinessLoss = Math.max(3, 10 - Math.floor(gameState.level / 3));
     
     gameState.hunger = Math.max(0, gameState.hunger - hungerLoss);
     gameState.happiness = Math.max(0, gameState.happiness - happinessLoss);
     
-    // Thêm ngẫu nhiên để tăng tính bất ngờ (10%)
+    // Add randomness for surprise factor (10%)
     const randomFactor = 1 + (Math.random() * 0.2 - 0.1);
     const finalYourPower = yourPower * randomFactor;
     const finalOpponentPower = opponentPower * (1 + (Math.random() * 0.2 - 0.1));
     
-    // Xác định người chiến thắng
+    // Determine winner
     let winner;
     if (finalYourPower > finalOpponentPower) {
         winner = 'you';
-        addLog("Rồng của bạn đã chiến thắng!");
+        showNotification("Rồng của bạn đã chiến thắng!");
     } else if (finalYourPower < finalOpponentPower) {
         winner = 'opponent';
-        addLog("Rồng của đối thủ mạnh hơn!");
+        showNotification("Rồng của đối thủ mạnh hơn!");
     } else {
         winner = 'draw';
-        addLog("Trận đấu hòa!");
+        showNotification("Trận đấu hòa!");
     }
     
-    // Gửi kết quả cho đối thủ
+    // Send result to opponent
     if (conn && conn.open) {
         conn.send({
             type: 'battle_result',
@@ -466,7 +505,7 @@ function startMultiplayerBattle() {
         });
     }
     
-    // Cập nhật XP
+    // Update XP
     const baseXP = 10 + Math.min(gameState.level, 10);
     if (winner === 'you') {
         gameState.xp += baseXP * 1.5;
@@ -483,3 +522,8 @@ function startMultiplayerBattle() {
 
 // Initialize the game
 window.onload = initGame;
+
+// Save game when page is closing
+window.addEventListener('beforeunload', () => {
+    saveGame();
+});
