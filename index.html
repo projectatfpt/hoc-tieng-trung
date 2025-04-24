@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
 <body>
     <div class="app-container">
         <!-- Header với icon nhật ký -->
@@ -119,6 +120,40 @@
                 <h2>Tiến hóa!</h2>
                 <p id="evolution-text">Rồng của bạn đang tiến hóa...</p>
                 <button id="close-evolution">Tiếp tục</button>
+            </div>
+        </div>
+        <div class="battle-popup" id="battle-popup">
+            <div class="popup-header">
+                <h3>Kết nối chiến đấu</h3>
+                <button class="close-popup" id="close-battle-popup">&times;</button>
+            </div>
+            <div class="popup-content">
+                <div class="connection-options">
+                    <button id="create-room-btn" class="action-btn">
+                        <i class="fas fa-plus"></i>
+                        <span>Tạo phòng</span>
+                    </button>
+                    <button id="join-room-btn" class="action-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Vào phòng</span>
+                    </button>
+                </div>
+                <div id="room-creation" style="display: none;">
+                    <p>Mã phòng của bạn:</p>
+                    <div class="room-code" id="room-code">Đang tạo...</div>
+                    <p>Chia sẻ mã này với đối thủ</p>
+                </div>
+                <div id="room-joining" style="display: none;">
+                    <p>Nhập mã phòng:</p>
+                    <input type="text" id="room-input" placeholder="Nhập mã phòng">
+                    <button id="connect-btn" class="action-btn">
+                        <i class="fas fa-link"></i>
+                        <span>Kết nối</span>
+                    </button>
+                </div>
+                <div id="battle-status" style="display: none;">
+                    <p id="connection-status">Đang kết nối...</p>
+                </div>
             </div>
         </div>
     </div>
