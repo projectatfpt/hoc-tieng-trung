@@ -55,15 +55,52 @@ body {
     letter-spacing: 1px;
 }
 
-.log-icon {
-    font-size: 1.5rem;
-    color: var(--accent-gold);
-    cursor: pointer;
-    transition: transform 0.3s ease;
+/* Notification */
+.notification-container {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
-.log-icon:hover {
-    transform: scale(1.1);
+.notification {
+    background-color: var(--beige-secondary);
+    color: var(--text-dark);
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-in 2.5s forwards;
+    opacity: 1;
+    transform: translateY(0);
+    width: 100%;
+    text-align: center;
+    border-left: 4px solid var(--accent-gold);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
 }
 
 .dragon-display {
@@ -257,7 +294,7 @@ body {
     position: absolute;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0) 70%);
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0) 70%);
     border-radius: 50%;
     top: -40px;
     left: -25px;
@@ -265,18 +302,39 @@ body {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.3; }
-    100% { transform: scale(1.1); opacity: 0.6; }
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0.6;
+    }
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
 }
 
 @keyframes flap {
-    0%, 100% { transform: rotate(20deg); }
-    50% { transform: rotate(10deg); }
+
+    0%,
+    100% {
+        transform: rotate(20deg);
+    }
+
+    50% {
+        transform: rotate(10deg);
+    }
 }
 
 .dragon-info {
@@ -338,10 +396,10 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0.3) 0%, 
-        rgba(255, 255, 255, 0) 50%, 
-        rgba(255, 255, 255, 0.3) 100%);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0) 50%,
+            rgba(255, 255, 255, 0.3) 100%);
     animation: shine 2s infinite;
 }
 
@@ -365,8 +423,13 @@ body {
 }
 
 @keyframes shine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 .action-buttons {
@@ -406,77 +469,6 @@ body {
 .action-btn:disabled {
     opacity: 0.6;
     transform: none;
-}
-
-/* Popup nhật ký */
-.log-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 400px;
-    max-height: 70vh;
-    background-color: var(--beige-primary);
-    border-radius: 15px;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.popup-header {
-    padding: 15px 20px;
-    background-color: var(--beige-secondary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--beige-dark);
-}
-
-.popup-header h3 {
-    color: var(--text-dark);
-    font-size: 1.2rem;
-}
-
-.close-popup {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--accent-red);
-    cursor: pointer;
-    padding: 0 5px;
-}
-
-.popup-content {
-    padding: 15px;
-    overflow-y: auto;
-    flex-grow: 1;
-}
-
-.log-entry {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    line-height: 1.4;
-    animation: fadeIn 0.3s ease;
-}
-
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Evolution animation */
@@ -536,27 +528,7 @@ body {
     transform: scale(0.95);
 }
 
-/* Responsive */
-@media (max-height: 700px) {
-    .dragon-container {
-        height: 200px;
-    }
-
-    .baby-dragon {
-        width: 100px;
-        height: 100px;
-    }
-
-    .adult-dragon {
-        width: 180px;
-        height: 140px;
-    }
-
-    .god-dragon {
-        width: 220px;
-        height: 190px;
-    }
-}
+/* Battle Connection Popup */
 .battle-popup {
     position: fixed;
     top: 50%;
@@ -572,6 +544,35 @@ body {
     display: none;
     flex-direction: column;
     overflow: hidden;
+}
+
+.popup-header {
+    padding: 15px 20px;
+    background-color: var(--beige-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--beige-dark);
+}
+
+.popup-header h3 {
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+.close-popup {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--accent-red);
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.popup-content {
+    padding: 15px;
+    overflow-y: auto;
+    flex-grow: 1;
 }
 
 .connection-options {
@@ -605,4 +606,26 @@ body {
 #battle-status {
     text-align: center;
     padding: 20px 0;
+}
+
+/* Responsive */
+@media (max-height: 700px) {
+    .dragon-container {
+        height: 200px;
+    }
+
+    .baby-dragon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .adult-dragon {
+        width: 180px;
+        height: 140px;
+    }
+
+    .god-dragon {
+        width: 220px;
+        height: 190px;
+    }
 }
