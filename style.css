@@ -557,3 +557,52 @@ body {
         height: 190px;
     }
 }
+.battle-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    max-height: 70vh;
+    background-color: var(--beige-primary);
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.connection-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.room-code {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--accent-red);
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: var(--beige-light);
+    border-radius: 8px;
+}
+
+#room-input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid var(--beige-dark);
+    border-radius: 8px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#battle-status {
+    text-align: center;
+    padding: 20px 0;
+}
