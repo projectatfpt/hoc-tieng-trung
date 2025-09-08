@@ -3,146 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thần Long Kỷ Nguyên</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Flashcard Tiếng Trung</title>
+    <link rel="stylesheet" href="TiengTrung.css">
 </head>
-<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
 <body>
-    <div class="app-container">
-        <!-- Header với icon nhật ký -->
-        <header class="app-header">
-            <h1 class="app-title">THẦN LONG KỶ NGUYÊN</h1>
+    <div class="container">
+        <header>
+            <h1>Bảng Ghi Nhớ Từ Vựng Tiếng Trung</h1>
+            <p class="subtitle">Học từ vựng hiệu quả với phương pháp flashcard</p>
         </header>
-        <div class="notification-container" id="notification-container"></div>
-        <!-- Khu vực hiển thị rồng -->
-        <div class="dragon-display">
-            <div class="dragon-container">
-                <!-- Baby Dragon -->
-                <div class="dragon baby-dragon" id="baby-dragon">
-                    <div class="eye"></div>
-                    <div class="wing"></div>
+        
+        <div class="progress-container">
+            <div class="progress-info">
+                <span id="progress-text">Thẻ 1/99</span>
+                <span id="stats">Đã biết: 0 | Cần ôn: 0 | Chưa biết: 99</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div class="flashcard" id="flashcard">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="chinese-char" id="chinese-char">你</div>
+                    <div class="pinyin" id="pinyin">nǐ</div>
+                    <button class="show-meaning-btn" id="show-meaning">Hiện nghĩa</button>
                 </div>
-
-                <!-- Adult Dragon -->
-                <div class="dragon adult-dragon" id="adult-dragon">
-                    <div class="body"></div>
-                    <div class="head"></div>
-                    <div class="eye"></div>
-                    <div class="horn"></div>
-                    <div class="wing"></div>
-                </div>
-
-                <!-- God Dragon -->
-                <div class="dragon god-dragon" id="god-dragon">
-                    <div class="body"></div>
-                    <div class="head"></div>
-                    <div class="eye"></div>
-                    <div class="horn"></div>
-                    <div class="wing"></div>
-                    <div class="aura"></div>
+                <div class="card-back">
+                    <div class="meaning" id="meaning">bạn</div>
+                    <div class="category" id="category">Đại từ & nhân xưng</div>
                 </div>
             </div>
         </div>
-
-        <!-- Thông tin rồng -->
-        <div class="dragon-info">
-            <div class="dragon-name">Rồng của bạn</div>
-            <div class="dragon-level">Cấp <span id="level">1</span> - <span id="stage">Rồng non</span></div>
-        </div>
-
-        <!-- Các chỉ số -->
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-label">Đói</div>
-                <div class="stat-bar">
-                    <div class="stat-fill" id="hunger-bar" style="width: 100%"></div>
+        
+        <div class="controls">
+            <div class="difficulty-buttons">
+                <p>Bạn có nhớ từ này không?</p>
+                <div>
+                    <button class="difficulty-btn hard" data-difficulty="hard">Chưa biết</button>
+                    <button class="difficulty-btn medium" data-difficulty="medium">Cần ôn</button>
+                    <button class="difficulty-btn easy" data-difficulty="easy">Đã biết</button>
                 </div>
-                <div class="stat-value" id="hunger-value">100%</div>
             </div>
             
-            <div class="stat-item">
-                <div class="stat-label">Vui vẻ</div>
-                <div class="stat-bar">
-                    <div class="stat-fill" id="happiness-bar" style="width: 100%"></div>
-                </div>
-                <div class="stat-value" id="happiness-value">100%</div>
+            <div class="navigation-buttons">
+                <button id="prev-btn" class="nav-btn">Thẻ trước</button>
+                <button id="next-btn" class="nav-btn">Thẻ tiếp theo</button>
             </div>
             
-            <div class="stat-item">
-                <div class="stat-label">Kinh nghiệm</div>
-                <div class="stat-bar">
-                    <div class="stat-fill" id="xp-bar" style="width: 0%"></div>
-                </div>
-                <div class="stat-value" id="xp-value">0/100</div>
+            <div class="category-filter">
+                <label for="category-select">Lọc theo danh mục:</label>
+                <select id="category-select">
+                    <option value="all">Tất cả danh mục</option>
+                    <option value="1">Đại từ & nhân xưng</option>
+                    <option value="2">Động từ & trợ động từ</option>
+                    <option value="3">Nghề nghiệp & quan hệ</option>
+                    <option value="4">Quốc gia & dân tộc</option>
+                    <option value="5">Ngôn ngữ & chữ viết</option>
+                    <option value="6">Thời gian & số đếm</option>
+                    <option value="7">Thức ăn & đồ uống</option>
+                    <option value="8">Từ khác</option>
+                </select>
             </div>
-        </div>
-
-        <!-- Các nút hành động -->
-        <div class="action-buttons">
-            <button id="feed-btn" class="action-btn">
-                <i class="fas fa-utensils"></i>
-                <span>Cho ăn</span>
-            </button>
-            <button id="play-btn" class="action-btn">
-                <i class="fas fa-gamepad"></i>
-                <span>Chơi đùa</span>
-            </button>
-            <button id="train-btn" class="action-btn">
-                <i class="fas fa-dumbbell"></i>
-                <span>Huấn luyện</span>
-            </button>
-            <button id="battle-btn" class="action-btn">
-                <i class="fas fa-swords"></i>
-                <span>Chiến đấu</span>
-            </button>
-        </div>
-
-       
-        <!-- Animation tiến hóa -->
-        <div class="evolution-animation" id="evolution-animation">
-            <div class="evolution-content">
-                <h2>Tiến hóa!</h2>
-                <p id="evolution-text">Rồng của bạn đang tiến hóa...</p>
-                <button id="close-evolution">Tiếp tục</button>
-            </div>
-        </div>
-        <div class="battle-popup" id="battle-popup">
-            <div class="popup-header">
-                <h3>Kết nối chiến đấu</h3>
-                <button class="close-popup" id="close-battle-popup">&times;</button>
-            </div>
-            <div class="popup-content">
-                <div class="connection-options">
-                    <button id="create-room-btn" class="action-btn">
-                        <i class="fas fa-plus"></i>
-                        <span>Tạo phòng</span>
-                    </button>
-                    <button id="join-room-btn" class="action-btn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>Vào phòng</span>
-                    </button>
-                </div>
-                <div id="room-creation" style="display: none;">
-                    <p>Mã phòng của bạn:</p>
-                    <div class="room-code" id="room-code">Đang tạo...</div>
-                    <p>Chia sẻ mã này với đối thủ</p>
-                </div>
-                <div id="room-joining" style="display: none;">
-                    <p>Nhập mã phòng:</p>
-                    <input type="text" id="room-input" placeholder="Nhập mã phòng">
-                    <button id="connect-btn" class="action-btn">
-                        <i class="fas fa-link"></i>
-                        <span>Kết nối</span>
-                    </button>
-                </div>
-                <div id="battle-status" style="display: none;">
-                    <p id="connection-status">Đang kết nối...</p>
-                </div>
-            </div>
+            
+            <button id="shuffle-btn" class="shuffle-btn">Xáo trộn thẻ</button>
         </div>
     </div>
 
-    <script src="game.js"></script>
+    <script src="DaTaTiengTrung.js"></script>
+    <script src="TiengTrung.js"></script>
 </body>
 </html>
