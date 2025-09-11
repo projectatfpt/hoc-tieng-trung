@@ -155,4 +155,4 @@ const categoryNames = {
   "10": "Từ chỉ vị trí & khác",
 };
 
-export { vocabularyData, categoryNames };
+
