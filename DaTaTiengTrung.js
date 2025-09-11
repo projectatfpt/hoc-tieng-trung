@@ -28,6 +28,13 @@ const vocabularyData = [
     { chinese: "来", pinyin: "lái", meaning: "đến", category: "2" },
     { chinese: "在", pinyin: "zài", meaning: "ở, đang", category: "2" },
     { chinese: "了", pinyin: "le", meaning: "(trợ từ hoàn thành/thay đổi)", category: "2" },
+    { chinese: "一起", pinyin: "yìqǐ", meaning: "cùng nhau", category: "2" },
+    { chinese: "还要", pinyin: "hái yào", meaning: "còn muốn, cần thêm", category: "2" },
+    { chinese: "要", pinyin: "yào", meaning: "muốn, cần", category: "2" },
+    { chinese: "有", pinyin: "yǒu", meaning: "có", category: "2" },
+    { chinese: "没有", pinyin: "méiyǒu", meaning: "không có, chưa", category: "2" },
+    { chinese: "看", pinyin: "kàn", meaning: "nhìn, xem", category: "2" },
+    { chinese: "看见", pinyin: "kànjiàn", meaning: "nhìn thấy", category: "2" },
 
     // 3. Nghề nghiệp & quan hệ
     { chinese: "学生", pinyin: "xuéshēng", meaning: "học sinh, sinh viên", category: "3" },
@@ -56,11 +63,13 @@ const vocabularyData = [
     { chinese: "今天", pinyin: "jīntiān", meaning: "hôm nay", category: "6" },
     { chinese: "昨天", pinyin: "zuótiān", meaning: "hôm qua", category: "6" },
     { chinese: "明天", pinyin: "míngtiān", meaning: "ngày mai", category: "6" },
-    { chinese: "月", pinyin: "yuè", meaning: "tháng", category: "6" },
-    { chinese: "年", pinyin: "nián", meaning: "năm", category: "6" },
-    { chinese: "生日", pinyin: "shēngrì", meaning: "sinh nhật", category: "6" },
+    { chinese: "现在", pinyin: "xiànzài", meaning: "hiện tại, bây giờ", category: "6" },
+    { chinese: "上午", pinyin: "shàngwǔ", meaning: "buổi sáng", category: "6" },
     { chinese: "中午", pinyin: "zhōngwǔ", meaning: "buổi trưa", category: "6" },
-    { chinese: "晚上好", pinyin: "wǎnshang hǎo", meaning: "buổi tối tốt lành", category: "6" },
+    { chinese: "下午", pinyin: "xiàwǔ", meaning: "buổi chiều", category: "6" },
+    { chinese: "年", pinyin: "nián", meaning: "năm", category: "6" },
+    { chinese: "月", pinyin: "yuè", meaning: "tháng", category: "6" },
+    { chinese: "生日", pinyin: "shēngrì", meaning: "sinh nhật", category: "6" },
     { chinese: "一", pinyin: "yī", meaning: "một", category: "6" },
     { chinese: "二", pinyin: "èr", meaning: "hai", category: "6" },
     { chinese: "三", pinyin: "sān", meaning: "ba", category: "6" },
@@ -77,6 +86,8 @@ const vocabularyData = [
     { chinese: "号", pinyin: "hào", meaning: "ngày (trong tháng), số", category: "6" },
     { chinese: "个", pinyin: "gè", meaning: "(lượng từ chung)", category: "6" },
     { chinese: "岁", pinyin: "suì", meaning: "tuổi", category: "6" },
+    { chinese: "点", pinyin: "diǎn", meaning: "giờ", category: "6" },
+    { chinese: "分", pinyin: "fēn", meaning: "phút", category: "6" },
 
     // 7. Thức ăn & đồ uống
     { chinese: "苹果", pinyin: "píngguǒ", meaning: "táo", category: "7" },
@@ -95,6 +106,7 @@ const vocabularyData = [
     { chinese: "啤酒", pinyin: "píjiǔ", meaning: "bia", category: "7" },
     { chinese: "可乐", pinyin: "kělè", meaning: "coca", category: "7" },
     { chinese: "饭", pinyin: "fàn", meaning: "cơm, bữa ăn", category: "7" },
+    { chinese: "杯", pinyin: "bēi", meaning: "cốc, ly", category: "7" },
 
     // 8. Từ khác
     { chinese: "名字", pinyin: "míngzi", meaning: "tên", category: "8" },
@@ -107,14 +119,24 @@ const vocabularyData = [
     { chinese: "吗", pinyin: "ma", meaning: "(trợ từ nghi vấn)", category: "8" },
     { chinese: "哪", pinyin: "nǎ", meaning: "nào", category: "8" },
     { chinese: "这", pinyin: "zhè", meaning: "cái này, đây", category: "8" },
+    { chinese: "那", pinyin: "nà", meaning: "cái kia, đó", category: "8" },
     { chinese: "大", pinyin: "dà", meaning: "to, lớn", category: "8" },
+    { chinese: "小", pinyin: "xiǎo", meaning: "nhỏ, bé", category: "8" },
     { chinese: "呢", pinyin: "ne", meaning: "trợ từ (thì sao?)", category: "8" },
     { chinese: "好的", pinyin: "hǎo de", meaning: "được, ok", category: "8" },
     { chinese: "辛苦了", pinyin: "xīnkǔ le", meaning: "vất vả rồi", category: "8" },
     { chinese: "对不起", pinyin: "duìbuqǐ", meaning: "xin lỗi", category: "8" },
     { chinese: "没关系", pinyin: "méiguānxi", meaning: "không sao", category: "8" },
     { chinese: "谢谢", pinyin: "xièxie", meaning: "cảm ơn", category: "8" },
-    { chinese: "不客气", pinyin: "bú kèqi", meaning: "không có gì", category: "8" }
+    { chinese: "不客气", pinyin: "bú kèqi", meaning: "không có gì", category: "8" },
+    { chinese: "桌子", pinyin: "zhuōzi", meaning: "cái bàn", category: "8" },
+    { chinese: "椅子", pinyin: "yǐzi", meaning: "cái ghế", category: "8" },
+    { chinese: "杯子", pinyin: "bēizi", meaning: "cái cốc", category: "8" },
+    { chinese: "里", pinyin: "lǐ", meaning: "trong, ở trong", category: "8" },
+    { chinese: "钱", pinyin: "qián", meaning: "tiền", category: "8" },
+    { chinese: "块", pinyin: "kuài", meaning: "đồng (tiền)", category: "8" },
+    { chinese: "多少", pinyin: "duōshao", meaning: "bao nhiêu", category: "8" },
+    { chinese: "一点儿", pinyin: "yīdiǎnr", meaning: "một chút", category: "8" }
 ];
 
 // Tên danh mục
