@@ -32,7 +32,7 @@ const vocabularyData = [
   { chinese: "看见", pinyin: "kànjiàn", meaning: "nhìn thấy", category: "2" },
   { chinese: "要", pinyin: "yào", meaning: "cần, muốn", category: "2" },
 
-  // 3. Nghề nghiệp & quan hệ (10)
+  // 3. Nghề nghiệp & quan hệ (11)
   { chinese: "学生", pinyin: "xuésheng", meaning: "học sinh", category: "3" },
   { chinese: "工程师", pinyin: "gōngchéngshī", meaning: "kỹ sư", category: "3" },
   { chinese: "老师", pinyin: "lǎoshī", meaning: "thầy giáo, cô giáo", category: "3" },
@@ -43,6 +43,7 @@ const vocabularyData = [
   { chinese: "同学", pinyin: "tóngxué", meaning: "bạn học", category: "3" },
   { chinese: "人", pinyin: "rén", meaning: "người", category: "3" },
   { chinese: "员工", pinyin: "yuángōng", meaning: "nhân viên", category: "3" },
+  { chinese: "职员", pinyin: "zhíyuán", meaning: "nhân viên văn phòng", category: "3" },
 
   // 4. Quốc gia & dân tộc (3)
   { chinese: "中国", pinyin: "zhōngguó", meaning: "Trung Quốc", category: "4" },
@@ -160,4 +161,5 @@ const categoryNames = {
   "9": "Đồ vật & địa điểm",
   "10": "Từ khác"
 };
+
 
