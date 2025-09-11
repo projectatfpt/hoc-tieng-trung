@@ -144,15 +144,16 @@ const vocabularyData = [
 // Tên danh mục
 const categoryNames = {
   "1": "Đại từ & nhân xưng",
-  "2": "Chào hỏi & giao tiếp",
-  "3": "Quốc gia & ngôn ngữ",
-  "4": "Gia đình & nghề nghiệp",
-  "5": "Động từ thường dùng",
-  "6": "Số & lượng từ",
-  "7": "Thời gian",
-  "8": "Thức ăn & đồ uống",
-  "9": "Đồ vật & nơi chốn",
-  "10": "Từ chỉ vị trí & khác",
+  "2": "Động từ & trợ động từ",
+  "3": "Nghề nghiệp & quan hệ",
+  "4": "Quốc gia & dân tộc",
+  "5": "Ngôn ngữ & chữ viết",
+  "6": "Thời gian & số đếm",
+  "7": "Thức ăn & đồ uống",
+  "8": "Mua sắm & tiền bạc",
+  "9": "Đồ vật & địa điểm",
+  "10": "Từ khác"
 };
+
 
 
