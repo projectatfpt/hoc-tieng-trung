@@ -50,12 +50,11 @@ const vocabularyData = [
   { chinese: "美国", pinyin: "měiguó", meaning: "Mỹ", category: "4" },
   { chinese: "越南", pinyin: "yuènán", meaning: "Việt Nam", category: "4" },
 
-  // 5. Ngôn ngữ & chữ viết (5)
+  // 5. Ngôn ngữ & chữ viết (4)
   { chinese: "汉语", pinyin: "hànyǔ", meaning: "tiếng Hán, tiếng Trung", category: "5" },
   { chinese: "英语", pinyin: "yīngyǔ", meaning: "tiếng Anh", category: "5" },
   { chinese: "越南语", pinyin: "yuènányǔ", meaning: "tiếng Việt", category: "5" },
   { chinese: "汉字", pinyin: "hànzì", meaning: "chữ Hán", category: "5" },
-  { chinese: "说", pinyin: "shuō", meaning: "nói", category: "5" },
 
   // 6. Thời gian & số đếm (25)
   { chinese: "一", pinyin: "yī", meaning: "một", category: "6" },
@@ -116,7 +115,7 @@ const vocabularyData = [
   { chinese: "杯子", pinyin: "bēizi", meaning: "cái cốc", category: "9" },
   { chinese: "杯", pinyin: "bēi", meaning: "cốc, chén", category: "9" },
 
-  // 10. Từ khác (29)
+  // 10. Từ khác (36)
   { chinese: "好", pinyin: "hǎo", meaning: "tốt, khỏe", category: "10" },
   { chinese: "名字", pinyin: "míngzi", meaning: "tên", category: "10" },
   { chinese: "哪", pinyin: "nǎ", meaning: "nào, ở đâu", category: "10" },
@@ -124,6 +123,7 @@ const vocabularyData = [
   { chinese: "再见", pinyin: "zàijiàn", meaning: "tạm biệt", category: "10" },
   { chinese: "吗", pinyin: "ma", meaning: "không? (trợ từ nghi vấn)", category: "10" },
   { chinese: "都", pinyin: "dōu", meaning: "đều, tất cả", category: "10" },
+  { chinese: "里", pinyin: "lǐ", meaning: "trong, ở trong", category: "10" },
   { chinese: "也", pinyin: "yě", meaning: "cũng", category: "10" },
   { chinese: "和", pinyin: "hé", meaning: "và", category: "10" },
   { chinese: "这", pinyin: "zhè", meaning: "đây, cái này", category: "10" },
@@ -146,6 +146,12 @@ const vocabularyData = [
   { chinese: "辛苦了", pinyin: "xīnkǔle", meaning: "vất vả rồi", category: "10" },
   { chinese: "一点儿", pinyin: "yìdiǎnr", meaning: "một chút", category: "10" },
   { chinese: "上", pinyin: "shàng", meaning: "trên", category: "10" },
+  { chinese: "很", pinyin: "hěn", meaning: "rất", category: "10" },
+  { chinese: "猫", pinyin: "māo", meaning: "mèo", category: "10" },
+  { chinese: "狗", pinyin: "gǒu", meaning: "chó", category: "10" },
+  { chinese: "下", pinyin: "xià", meaning: "dưới, xuống", category: "10" },
+  { chinese: "漂亮", pinyin: "piàoliang", meaning: "đẹp", category: "10" },
+  { chinese: "多", pinyin: "duō", meaning: "nhiều", category: "10" },
 ];
 
 // Tên danh mục
@@ -161,5 +167,6 @@ const categoryNames = {
   "9": "Đồ vật & địa điểm",
   "10": "Từ khác"
 };
+
 
 
