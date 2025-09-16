@@ -296,7 +296,32 @@ h1 {
 .flashcard.reversed.flipped .card-inner {
     transform: rotateY(0deg);
 }
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
 
+.category-filter, .part-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 200px;
+}
+
+.category-filter label, .part-filter label {
+    font-weight: 500;
+}
+
+#category-select, #part-select {
+    padding: 8px 15px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    width: 100%;
+}
 @media (max-width: 600px) {
     .container {
         padding: 20px;
@@ -320,5 +345,13 @@ h1 {
 
     .navigation-buttons {
         flex-direction: column;
+    }
+    .filters {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .category-filter, .part-filter {
+        width: 100%;
     }
 }
