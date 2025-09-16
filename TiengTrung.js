@@ -18,6 +18,7 @@ const progressTextElement = document.getElementById('progress-text');
 const progressBarElement = document.getElementById('progress-bar');
 const statsElement = document.getElementById('stats');
 const categorySelectElement = document.getElementById('category-select');
+const partSelectElement = document.getElementById('part-select');
 const difficultyButtons = document.querySelectorAll('.difficulty-btn');
 const shuffleButton = document.getElementById('shuffle-btn');
 const reverseModeButton = document.getElementById('reverse-mode-btn');
@@ -26,10 +27,10 @@ const reverseModeButton = document.getElementById('reverse-mode-btn');
 function initApp() {
     // Hiển thị thẻ đầu tiên
     showCard(currentCardIndex);
-
+    
     // Cập nhật thống kê
     updateStats();
-
+    
     // Thiết lập sự kiện
     setupEventListeners();
 }
@@ -37,16 +38,16 @@ function initApp() {
 // Hiển thị thẻ
 function showCard(index) {
     if (filteredCards.length === 0) return;
-
+    
     const card = filteredCards[index];
-
+    
     if (isReverseMode) {
         // Chế độ đảo ngược: hiển thị nghĩa trước
         chineseCharElement.textContent = "?";
         pinyinElement.textContent = "";
         meaningElement.textContent = card.meaning;
         categoryElement.textContent = categoryNames[card.category];
-
+        
         // Đảo ngược lớp CSS để hiển thị mặt sau đầu tiên
         flashcardElement.classList.add('reversed');
     } else {
@@ -55,18 +56,18 @@ function showCard(index) {
         pinyinElement.textContent = card.pinyin;
         meaningElement.textContent = card.meaning;
         categoryElement.textContent = categoryNames[card.category];
-
+        
         // Đảm bảo thẻ hiển thị mặt trước
         flashcardElement.classList.remove('reversed');
     }
-
+    
     // Đặt lại trạng thái lật của thẻ
     flashcardElement.classList.remove('flipped');
-
+    
     // Cập nhật progress
     progressTextElement.textContent = `Thẻ ${index + 1}/${filteredCards.length}`;
     progressBarElement.style.width = `${((index + 1) / filteredCards.length) * 100}%`;
-
+    
     // Cập nhật trạng thái nút điều hướng
     prevButton.disabled = index === 0;
     nextButton.disabled = index === filteredCards.length - 1;
@@ -77,8 +78,30 @@ function updateStats() {
     const knownCount = cardStatus.filter(status => status === 2).length;
     const reviewCount = cardStatus.filter(status => status === 1).length;
     const unknownCount = cardStatus.filter(status => status === 0).length;
-
+    
     statsElement.textContent = `Đã biết: ${knownCount} | Cần ôn: ${reviewCount} | Chưa biết: ${unknownCount}`;
+}
+
+// Lọc thẻ theo danh mục và part
+function filterCards() {
+    const selectedCategory = categorySelectElement.value;
+    const selectedPart = partSelectElement.value;
+    
+    filteredCards = vocabularyData.filter(card => {
+        const categoryMatch = selectedCategory === 'all' || card.category === selectedCategory;
+        const partMatch = selectedPart === 'all' || card.part === selectedPart;
+        return categoryMatch && partMatch;
+    });
+    
+    // Reset về thẻ đầu tiên
+    currentCardIndex = 0;
+    showCard(currentCardIndex);
+    
+    // Nếu đang ở chế độ xáo trộn, hủy xáo trộn
+    if (isShuffled) {
+        isShuffled = false;
+        shuffleButton.textContent = "Xáo trộn thẻ";
+    }
 }
 
 // Xáo trộn thẻ
@@ -90,25 +113,16 @@ function shuffleCards() {
     currentCardIndex = 0;
     showCard(currentCardIndex);
     isShuffled = true;
-
+    
     // Cập nhật text nút xáo trộn
     shuffleButton.textContent = isShuffled ? "Sắp xếp lại" : "Xáo trộn thẻ";
 }
 
 // Sắp xếp lại thẻ theo thứ tự ban đầu
 function sortCards() {
-    const selectedCategory = categorySelectElement.value;
-
-    if (selectedCategory === 'all') {
-        filteredCards = [...vocabularyData];
-    } else {
-        filteredCards = vocabularyData.filter(card => card.category === selectedCategory);
-    }
-
-    currentCardIndex = 0;
-    showCard(currentCardIndex);
+    filterCards();
     isShuffled = false;
-
+    
     // Cập nhật text nút xáo trộn
     shuffleButton.textContent = isShuffled ? "Sắp xếp lại" : "Xáo trộn thẻ";
 }
@@ -116,10 +130,10 @@ function sortCards() {
 // Chuyển đổi chế độ học
 function toggleReverseMode() {
     isReverseMode = !isReverseMode;
-
+    
     // Cập nhật text nút chuyển đổi
     reverseModeButton.textContent = isReverseMode ? "Chế độ đảo ngược" : "Chế độ thường";
-
+    
     // Hiển thị lại thẻ hiện tại với chế độ mới
     showCard(currentCardIndex);
 }
@@ -129,7 +143,7 @@ function setupEventListeners() {
     // Nút hiện nghĩa
     showMeaningButton.addEventListener('click', () => {
         flashcardElement.classList.add('flipped');
-
+        
         // Nếu ở chế độ đảo ngược, hiển thị từ tiếng Trung khi lật thẻ
         if (isReverseMode) {
             const card = filteredCards[currentCardIndex];
@@ -137,7 +151,7 @@ function setupEventListeners() {
             pinyinElement.textContent = card.pinyin;
         }
     });
-
+    
     // Nút điều hướng
     prevButton.addEventListener('click', () => {
         if (currentCardIndex > 0) {
@@ -145,14 +159,14 @@ function setupEventListeners() {
             showCard(currentCardIndex);
         }
     });
-
+    
     nextButton.addEventListener('click', () => {
         if (currentCardIndex < filteredCards.length - 1) {
             currentCardIndex++;
             showCard(currentCardIndex);
         }
     });
-
+    
     // Nút đánh giá độ khó
     difficultyButtons.forEach(button => {
         button.addEventListener('click', (e) => {
@@ -160,7 +174,7 @@ function setupEventListeners() {
             const originalIndex = vocabularyData.findIndex(
                 card => card.chinese === filteredCards[currentCardIndex].chinese
             );
-
+            
             if (difficulty === 'easy') {
                 cardStatus[originalIndex] = 2; // Đã biết
                 // Tự động hiển thị đáp án để kiểm tra
@@ -199,34 +213,18 @@ function setupEventListeners() {
                     showCard(currentCardIndex);
                 }
             }
-
-
+            
             // Cập nhật thống kê
             updateStats();
         });
     });
-
+    
     // Lọc theo danh mục
-    categorySelectElement.addEventListener('change', (e) => {
-        const selectedCategory = e.target.value;
-
-        if (selectedCategory === 'all') {
-            filteredCards = [...vocabularyData];
-        } else {
-            filteredCards = vocabularyData.filter(card => card.category === selectedCategory);
-        }
-
-        // Reset về thẻ đầu tiên
-        currentCardIndex = 0;
-        showCard(currentCardIndex);
-
-        // Nếu đang ở chế độ xáo trộn, hủy xáo trộn
-        if (isShuffled) {
-            isShuffled = false;
-            shuffleButton.textContent = "Xáo trộn thẻ";
-        }
-    });
-
+    categorySelectElement.addEventListener('change', filterCards);
+    
+    // Lọc theo part
+    partSelectElement.addEventListener('change', filterCards);
+    
     // Nút xáo trộn thẻ
     shuffleButton.addEventListener('click', () => {
         if (isShuffled) {
@@ -235,7 +233,7 @@ function setupEventListeners() {
             shuffleCards();
         }
     });
-
+    
     // Nút chuyển đổi chế độ học
     reverseModeButton.addEventListener('click', toggleReverseMode);
 }
