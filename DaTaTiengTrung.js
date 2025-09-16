@@ -14,7 +14,7 @@ const vocabularyData = [
   { chinese: "叫", pinyin: "jiào", meaning: "tên là, gọi là", category: "2", part: "1" },
   { chinese: "不", pinyin: "bù", meaning: "không", category: "2", part: "1" },
   { chinese: "说", pinyin: "shuō", meaning: "nói", category: "2", part: "1" },
-  { chinese: "会", pinyin: "huì", meaning: "biết, có thể", category: "2", part: "1" },
+  { chinese: "会", pinyin: "huì", meaning: "biết (học mới biết)", category: "2", part: "1" },
   { chinese: "学", pinyin: "xué", meaning: "học", category: "2", part: "1" },
   { chinese: "写", pinyin: "xiě", meaning: "viết", category: "2", part: "1" },
   { chinese: "吃", pinyin: "chī", meaning: "ăn", category: "2", part: "1" },
@@ -198,6 +198,7 @@ const categoryNames = {
   "9": "Đồ vật & địa điểm",
   "10": "Từ khác"
 };
+
 
 
 
