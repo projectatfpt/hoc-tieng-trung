@@ -161,7 +161,7 @@ const vocabularyData = [
   { chinese: "不客气", pinyin: "búkèqi", meaning: "không có gì, đừng khách sáo", category: "10", part: "1" },
   { chinese: "个", pinyin: "ge", meaning: "cái, chiếc (lượng từ)", category: "10", part: "1" },
   { chinese: "号", pinyin: "hào", meaning: "số, ngày", category: "10", part: "1" },
-  { chinese: "了", pinyin: "le", meaning: "rồi (trợ từ)", category: "10", part: "1" },
+  { chinese: "了", pinyin: "le", meaning: "rồi, đã (trợ từ)", category: "10", part: "1" },
   { chinese: "在", pinyin: "zài", meaning: "ở, đang", category: "10", part: "1" },
   { chinese: "晚上好", pinyin: "wǎnshàng hǎo", meaning: "chào buổi tối", category: "10", part: "1" },
   { chinese: "好的", pinyin: "hǎode", meaning: "được, vâng (đồng ý)", category: "10", part: "1" },
@@ -198,6 +198,7 @@ const categoryNames = {
   "9": "Đồ vật & địa điểm",
   "10": "Từ khác"
 };
+
 
 
 
