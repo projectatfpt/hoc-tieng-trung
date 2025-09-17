@@ -9,12 +9,12 @@ const vocabularyData = [
   { chinese: "您", pinyin: "nín", meaning: "ngài, ông, bà (kính ngữ)", category: "1", part: "1" },
   { chinese: "们", pinyin: "men", meaning: "các (hậu tố số nhiều)", category: "1", part: "1" },
 
-  // 2. Động từ & trợ động từ (26)
+  // 2. Động từ & trợ động từ (31)
   { chinese: "是", pinyin: "shì", meaning: "là", category: "2", part: "1" },
   { chinese: "叫", pinyin: "jiào", meaning: "tên là, gọi là", category: "2", part: "1" },
   { chinese: "不", pinyin: "bù", meaning: "không", category: "2", part: "1" },
   { chinese: "说", pinyin: "shuō", meaning: "nói", category: "2", part: "1" },
-  { chinese: "会", pinyin: "huì", meaning: "biết (học mới biết)", category: "2", part: "1" },
+  { chinese: "会", pinyin: "huì", meaning: "biết, có thể", category: "2", part: "1" },
   { chinese: "学", pinyin: "xué", meaning: "học", category: "2", part: "1" },
   { chinese: "写", pinyin: "xiě", meaning: "viết", category: "2", part: "1" },
   { chinese: "吃", pinyin: "chī", meaning: "ăn", category: "2", part: "1" },
@@ -36,6 +36,11 @@ const vocabularyData = [
   { chinese: "工作", pinyin: "gōngzuò", meaning: "công việc, làm việc", category: "2", part: "2" },
   { chinese: "认识", pinyin: "rènshi", meaning: "quen biết", category: "2", part: "2" },
   { chinese: "坐", pinyin: "zuò", meaning: "ngồi, đi (bằng phương tiện)", category: "2", part: "2" },
+  { chinese: "请", pinyin: "qǐng", meaning: "mời, xin", category: "2", part: "2" },
+  { chinese: "到", pinyin: "dào", meaning: "đến", category: "2", part: "2" },
+  { chinese: "睡觉", pinyin: "shuìjiào", meaning: "ngủ", category: "2", part: "2" },
+  { chinese: "开", pinyin: "kāi", meaning: "mở, lái (xe)", category: "2", part: "2" },
+  { chinese: "问", pinyin: "wèn", meaning: "hỏi", category: "2", part: "2" },
 
   // 3. Nghề nghiệp & quan hệ (16)
   { chinese: "学生", pinyin: "xuésheng", meaning: "học sinh", category: "3", part: "1" },
@@ -114,13 +119,14 @@ const vocabularyData = [
   { chinese: "可乐", pinyin: "kělè", meaning: "coca", category: "7", part: "1" },
   { chinese: "蛋糕", pinyin: "dàngāo", meaning: "bánh gato", category: "7", part: "2" },
 
-  // 8. Mua sắm & tiền bạc (4)
+  // 8. Mua sắm & tiền bạc (5)
   { chinese: "钱", pinyin: "qián", meaning: "tiền", category: "8", part: "1" },
   { chinese: "块", pinyin: "kuài", meaning: "đồng (đơn vị tiền)", category: "8", part: "1" },
   { chinese: "买", pinyin: "mǎi", meaning: "mua", category: "8", part: "1" },
   { chinese: "多少", pinyin: "duōshao", meaning: "bao nhiêu", category: "8", part: "1" },
+  { chinese: "发票", pinyin: "fāpiào", meaning: "hóa đơn", category: "8", part: "2" },
 
-  // 9. Đồ vật & địa điểm (15)
+  // 9. Đồ vật & địa điểm (18)
   { chinese: "家", pinyin: "jiā", meaning: "nhà, gia đình", category: "9", part: "1" },
   { chinese: "学校", pinyin: "xuéxiào", meaning: "trường học", category: "9", part: "1" },
   { chinese: "桌子", pinyin: "zhuōzi", meaning: "cái bàn", category: "9", part: "1" },
@@ -136,8 +142,11 @@ const vocabularyData = [
   { chinese: "机场", pinyin: "jīchǎng", meaning: "sân bay", category: "9", part: "2" },
   { chinese: "飞机", pinyin: "fēijī", meaning: "máy bay", category: "9", part: "2" },
   { chinese: "出租车", pinyin: "chūzūchē", meaning: "xe taxi", category: "9", part: "2" },
+  { chinese: "酒店", pinyin: "jiǔdiàn", meaning: "khách sạn", category: "9", part: "2" },
+  { chinese: "车", pinyin: "chē", meaning: "xe", category: "9", part: "2" },
+  { chinese: "空调", pinyin: "kōngtiáo", meaning: "điều hòa", category: "9", part: "2" },
 
-  // 10. Từ khác (44)
+  // 10. Từ khác (50)
   { chinese: "好", pinyin: "hǎo", meaning: "tốt, khỏe", category: "10", part: "1" },
   { chinese: "名字", pinyin: "míngzi", meaning: "tên", category: "10", part: "1" },
   { chinese: "哪", pinyin: "nǎ", meaning: "nào, ở đâu", category: "10", part: "1" },
@@ -161,7 +170,7 @@ const vocabularyData = [
   { chinese: "不客气", pinyin: "búkèqi", meaning: "không có gì, đừng khách sáo", category: "10", part: "1" },
   { chinese: "个", pinyin: "ge", meaning: "cái, chiếc (lượng từ)", category: "10", part: "1" },
   { chinese: "号", pinyin: "hào", meaning: "số, ngày", category: "10", part: "1" },
-  { chinese: "了", pinyin: "le", meaning: "rồi, đã (trợ từ)", category: "10", part: "1" },
+  { chinese: "了", pinyin: "le", meaning: "rồi (trợ từ)", category: "10", part: "1" },
   { chinese: "在", pinyin: "zài", meaning: "ở, đang", category: "10", part: "1" },
   { chinese: "晚上好", pinyin: "wǎnshàng hǎo", meaning: "chào buổi tối", category: "10", part: "1" },
   { chinese: "好的", pinyin: "hǎode", meaning: "được, vâng (đồng ý)", category: "10", part: "1" },
@@ -183,6 +192,13 @@ const vocabularyData = [
   { chinese: "感冒", pinyin: "gǎnmào", meaning: "cảm cúm", category: "10", part: "2" },
   { chinese: "怎么", pinyin: "zěnme", meaning: "như thế nào, làm sao", category: "10", part: "2" },
   { chinese: "少", pinyin: "shǎo", meaning: "ít", category: "10", part: "2" },
+  { chinese: "天气", pinyin: "tiānqì", meaning: "thời tiết", category: "10", part: "2" },
+  { chinese: "冷", pinyin: "lěng", meaning: "lạnh", category: "10", part: "2" },
+  { chinese: "热", pinyin: "rè", meaning: "nóng", category: "10", part: "2" },
+  { chinese: "下雨", pinyin: "xiàyǔ", meaning: "trời mưa", category: "10", part: "2" },
+  { chinese: "怎么样", pinyin: "zěnmeyàng", meaning: "thế nào", category: "10", part: "2" },
+  { chinese: "有点儿", pinyin: "yǒudiǎnr", meaning: "hơi, có chút", category: "10", part: "2" },
+
 ];
 
 // Tên danh mục
@@ -198,8 +214,6 @@ const categoryNames = {
   "9": "Đồ vật & địa điểm",
   "10": "Từ khác"
 };
-
-
 
 
 
