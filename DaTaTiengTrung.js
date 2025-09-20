@@ -243,6 +243,7 @@ const vocabularyData = [
   { chinese: "长", pinyin: "cháng", meaning: "dài", category: "10", part: "2" },
   { chinese: "快", pinyin: "kuài", meaning: "nhanh", category: "10", part: "2" },
   { chinese: "远", pinyin: "yuǎn", meaning: "xa", category: "10", part: "2" },
+  { chinese: "每", pinyin: "měi", meaning: "mỗi, mọi", category: "10", part: "2" },
 ];
 
 // Tên danh mục
