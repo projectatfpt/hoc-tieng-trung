@@ -315,7 +315,6 @@ const vocabularyData = [
   { chinese: "颜色", pinyin: "yánsè", meaning: "màu sắc", category: "10", part: "3" },
   { chinese: "累", pinyin: "lèi", meaning: "mệt", category: "10", part: "3" },
   { chinese: "真", pinyin: "zhēn", meaning: "thật, thực sự", category: "10", part: "3" },
-  { chinese: "节", pinyin: "jié", meaning: "tiết, dịp lễ", category: "10", part: "3" },
   { chinese: "红", pinyin: "hóng", meaning: "màu đỏ", category: "10", part: "3" },
   { chinese: "生病", pinyin: "shēngbìng", meaning: "ốm, bệnh", category: "10", part: "3" },
   { chinese: "药", pinyin: "yào", meaning: "thuốc", category: "10", part: "3" },
@@ -348,6 +347,7 @@ const categoryNames = {
   "9": "Đồ vật & địa điểm",
   "10": "Từ khác"
 };
+
 
 
 
