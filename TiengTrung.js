@@ -3,7 +3,8 @@ let currentCardIndex = 0;
 let filteredCards = [...vocabularyData];
 let cardStatus = Array(vocabularyData.length).fill(0); // 0: chưa biết, 1: cần ôn, 2: đã biết
 let isShuffled = false;
-let isReverseMode = false; // false: hiện từ, true: hiện nghĩa trước
+let isReverseMode = false;     // false: hiện từ, true: hiện nghĩa trước
+let isChineseOnlyMode = false; // chỉ hiện chữ Hán
 
 // DOM Elements
 const chineseCharElement = document.getElementById('chinese-char');
@@ -22,53 +23,50 @@ const partSelectElement = document.getElementById('part-select');
 const difficultyButtons = document.querySelectorAll('.difficulty-btn');
 const shuffleButton = document.getElementById('shuffle-btn');
 const reverseModeButton = document.getElementById('reverse-mode-btn');
+const chineseOnlyButton = document.getElementById('chinese-only-btn');
 
 // Khởi tạo ứng dụng
 function initApp() {
-    // Hiển thị thẻ đầu tiên
     showCard(currentCardIndex);
-    
-    // Cập nhật thống kê
     updateStats();
-    
-    // Thiết lập sự kiện
     setupEventListeners();
 }
 
 // Hiển thị thẻ
 function showCard(index) {
     if (filteredCards.length === 0) return;
-    
     const card = filteredCards[index];
-    
-    if (isReverseMode) {
-        // Chế độ đảo ngược: hiển thị nghĩa trước
+
+    if (isChineseOnlyMode) {
+        // Chỉ chữ Hán
+        chineseCharElement.textContent = card.chinese;
+        pinyinElement.textContent = "";
+        meaningElement.textContent = card.pinyin + " - " + card.meaning; // hiện pinyin + nghĩa ở mặt sau
+        categoryElement.textContent = categoryNames[card.category];
+
+        flashcardElement.classList.remove('reversed');
+
+    } else if (isReverseMode) {
+        // Nghĩa trước
         chineseCharElement.textContent = "?";
         pinyinElement.textContent = "";
         meaningElement.textContent = card.meaning;
         categoryElement.textContent = categoryNames[card.category];
-        
-        // Đảo ngược lớp CSS để hiển thị mặt sau đầu tiên
         flashcardElement.classList.add('reversed');
+
     } else {
-        // Chế độ thông thường: hiển thị từ trước
+        // Bình thường
         chineseCharElement.textContent = card.chinese;
         pinyinElement.textContent = card.pinyin;
         meaningElement.textContent = card.meaning;
         categoryElement.textContent = categoryNames[card.category];
-        
-        // Đảm bảo thẻ hiển thị mặt trước
         flashcardElement.classList.remove('reversed');
     }
-    
-    // Đặt lại trạng thái lật của thẻ
+
     flashcardElement.classList.remove('flipped');
-    
-    // Cập nhật progress
     progressTextElement.textContent = `Thẻ ${index + 1}/${filteredCards.length}`;
     progressBarElement.style.width = `${((index + 1) / filteredCards.length) * 100}%`;
-    
-    // Cập nhật trạng thái nút điều hướng
+
     prevButton.disabled = index === 0;
     nextButton.disabled = index === filteredCards.length - 1;
 }
@@ -78,33 +76,30 @@ function updateStats() {
     const knownCount = cardStatus.filter(status => status === 2).length;
     const reviewCount = cardStatus.filter(status => status === 1).length;
     const unknownCount = cardStatus.filter(status => status === 0).length;
-    
     statsElement.textContent = `Đã biết: ${knownCount} | Cần ôn: ${reviewCount} | Chưa biết: ${unknownCount}`;
 }
 
-// Lọc thẻ theo danh mục và part
+// Lọc thẻ
 function filterCards() {
     const selectedCategory = categorySelectElement.value;
     const selectedPart = partSelectElement.value;
-    
+
     filteredCards = vocabularyData.filter(card => {
         const categoryMatch = selectedCategory === 'all' || card.category === selectedCategory;
         const partMatch = selectedPart === 'all' || card.part === selectedPart;
         return categoryMatch && partMatch;
     });
-    
-    // Reset về thẻ đầu tiên
+
     currentCardIndex = 0;
     showCard(currentCardIndex);
-    
-    // Nếu đang ở chế độ xáo trộn, hủy xáo trộn
+
     if (isShuffled) {
         isShuffled = false;
         shuffleButton.textContent = "Xáo trộn thẻ";
     }
 }
 
-// Xáo trộn thẻ
+// Xáo trộn
 function shuffleCards() {
     for (let i = filteredCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -113,119 +108,100 @@ function shuffleCards() {
     currentCardIndex = 0;
     showCard(currentCardIndex);
     isShuffled = true;
-    
-    // Cập nhật text nút xáo trộn
-    shuffleButton.textContent = isShuffled ? "Sắp xếp lại" : "Xáo trộn thẻ";
+    shuffleButton.textContent = "Sắp xếp lại";
 }
 
-// Sắp xếp lại thẻ theo thứ tự ban đầu
 function sortCards() {
     filterCards();
     isShuffled = false;
-    
-    // Cập nhật text nút xáo trộn
-    shuffleButton.textContent = isShuffled ? "Sắp xếp lại" : "Xáo trộn thẻ";
+    shuffleButton.textContent = "Xáo trộn thẻ";
 }
 
-// Chuyển đổi chế độ học
+// Chuyển chế độ
 function toggleReverseMode() {
     isReverseMode = !isReverseMode;
-    
-    // Cập nhật text nút chuyển đổi
-    reverseModeButton.textContent = isReverseMode ? "Chế độ đảo ngược" : "Chế độ thường";
-    
-    // Hiển thị lại thẻ hiện tại với chế độ mới
+    isChineseOnlyMode = false; // tắt nếu đang bật
+    reverseModeButton.textContent = isReverseMode ? "Chế độ đảo ngược (ON)" : "Chế độ thường";
+    chineseOnlyButton.textContent = "Chỉ chữ Hán";
     showCard(currentCardIndex);
 }
 
 // Thiết lập sự kiện
 function setupEventListeners() {
-    // Nút hiện nghĩa
+    // Hiện nghĩa
     showMeaningButton.addEventListener('click', () => {
         flashcardElement.classList.add('flipped');
-        
-        // Nếu ở chế độ đảo ngược, hiển thị từ tiếng Trung khi lật thẻ
         if (isReverseMode) {
             const card = filteredCards[currentCardIndex];
             chineseCharElement.textContent = card.chinese;
             pinyinElement.textContent = card.pinyin;
         }
     });
-    
-    // Nút điều hướng
+
+    // Điều hướng
     prevButton.addEventListener('click', () => {
         if (currentCardIndex > 0) {
             currentCardIndex--;
             showCard(currentCardIndex);
         }
     });
-    
     nextButton.addEventListener('click', () => {
         if (currentCardIndex < filteredCards.length - 1) {
             currentCardIndex++;
             showCard(currentCardIndex);
         }
     });
-    
-    // Nút đánh giá độ khó
+
+    // Đánh giá độ khó
     difficultyButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const difficulty = e.target.dataset.difficulty;
             const originalIndex = vocabularyData.findIndex(
                 card => card.chinese === filteredCards[currentCardIndex].chinese
             );
-            
+
             if (difficulty === 'easy') {
-                cardStatus[originalIndex] = 2; // Đã biết
-                // Tự động hiển thị đáp án để kiểm tra
+                cardStatus[originalIndex] = 2;
                 if (isReverseMode) {
                     const card = filteredCards[currentCardIndex];
                     chineseCharElement.textContent = card.chinese;
                     pinyinElement.textContent = card.pinyin;
                 }
                 flashcardElement.classList.add('flipped');
-
-                // Sau 1 giây lật lại rồi mới sang thẻ tiếp theo
                 setTimeout(() => {
                     flashcardElement.classList.remove('flipped');
-
                     setTimeout(() => {
                         if (currentCardIndex < filteredCards.length - 1) {
                             currentCardIndex++;
                             showCard(currentCardIndex);
                         } else if (filteredCards.length > 0) {
-                            currentCardIndex = 0; // quay lại đầu
+                            currentCardIndex = 0;
                             showCard(currentCardIndex);
                         }
-                    }, 300); // delay nhỏ để đảm bảo hiệu ứng lật xong
+                    }, 300);
                 }, 1000);
-
             } else if (difficulty === 'medium') {
-                cardStatus[originalIndex] = 1; // Cần ôn
+                cardStatus[originalIndex] = 1;
                 if (currentCardIndex < filteredCards.length - 1) {
                     currentCardIndex++;
                     showCard(currentCardIndex);
                 }
             } else {
-                cardStatus[originalIndex] = 0; // Chưa biết
+                cardStatus[originalIndex] = 0;
                 if (currentCardIndex < filteredCards.length - 1) {
                     currentCardIndex++;
                     showCard(currentCardIndex);
                 }
             }
-            
-            // Cập nhật thống kê
             updateStats();
         });
     });
-    
-    // Lọc theo danh mục
+
+    // Lọc
     categorySelectElement.addEventListener('change', filterCards);
-    
-    // Lọc theo part
     partSelectElement.addEventListener('change', filterCards);
-    
-    // Nút xáo trộn thẻ
+
+    // Xáo trộn
     shuffleButton.addEventListener('click', () => {
         if (isShuffled) {
             sortCards();
@@ -233,10 +209,19 @@ function setupEventListeners() {
             shuffleCards();
         }
     });
-    
-    // Nút chuyển đổi chế độ học
+
+    // Chế độ đảo ngược
     reverseModeButton.addEventListener('click', toggleReverseMode);
+
+    // Chế độ chỉ chữ Hán
+    chineseOnlyButton.addEventListener('click', () => {
+        isChineseOnlyMode = !isChineseOnlyMode;
+        isReverseMode = false; // tắt nếu đang bật
+        chineseOnlyButton.textContent = isChineseOnlyMode ? "Chỉ chữ Hán (ON)" : "Chỉ chữ Hán";
+        reverseModeButton.textContent = "Chế độ thường";
+        showCard(currentCardIndex);
+    });
 }
 
-// Khởi chạy ứng dụng khi trang được tải
+// Khởi chạy
 document.addEventListener('DOMContentLoaded', initApp);
