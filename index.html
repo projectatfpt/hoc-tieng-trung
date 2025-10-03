@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard Tiếng Trung</title>
     <link rel="stylesheet" href="TiengTrung.css">
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1>Bảng Ghi Nhớ Từ Vựng Tiếng Trung</h1>
             <p class="subtitle">Học từ vựng hiệu quả với phương pháp flashcard</p>
         </header>
-        
+
         <div class="mode-toggle">
             <button id="reverse-mode-btn" class="mode-btn">Chế độ thường</button>
+            <button id="chinese-only-btn" class="mode-btn">Chỉ chữ Hán</button>
         </div>
-        
+
         <div class="progress-container">
             <div class="progress-info">
                 <span id="progress-text">Thẻ 1/99</span>
@@ -26,7 +29,7 @@
                 <div class="progress" id="progress-bar"></div>
             </div>
         </div>
-        
+
         <div class="flashcard" id="flashcard">
             <div class="card-inner">
                 <div class="card-front">
@@ -40,7 +43,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="controls">
             <div class="difficulty-buttons">
                 <p>Bạn có nhớ từ này không?</p>
@@ -50,12 +53,12 @@
                     <button class="difficulty-btn easy" data-difficulty="easy">Đã biết</button>
                 </div>
             </div>
-            
+
             <div class="navigation-buttons">
                 <button id="prev-btn" class="nav-btn">Thẻ trước</button>
                 <button id="next-btn" class="nav-btn">Thẻ tiếp theo</button>
             </div>
-            
+
             <div class="filters">
                 <div class="category-filter">
                     <label for="category-select">Lọc theo danh mục:</label>
@@ -71,7 +74,7 @@
                         <option value="8">Từ khác</option>
                     </select>
                 </div>
-                
+
                 <div class="part-filter">
                     <label for="part-select">Lọc theo part:</label>
                     <select id="part-select">
@@ -82,7 +85,7 @@
                     </select>
                 </div>
             </div>
-            
+
             <button id="shuffle-btn" class="shuffle-btn">Xáo trộn thẻ</button>
         </div>
     </div>
@@ -90,5 +93,5 @@
     <script src="DaTaTiengTrung.js"></script>
     <script src="TiengTrung.js"></script>
 </body>
-</html>
 
+</html>
